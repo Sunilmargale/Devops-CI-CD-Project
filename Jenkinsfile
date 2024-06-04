@@ -2,8 +2,8 @@ pipeline {
   agent any
 	
   environment {
-    DOCKERHUB_CREDENTIALS = credentials('optical-token')
-    REMOTE_SERVER = '52.66.253.139'
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub-token')
+    REMOTE_SERVER = '13.127.231.172'
     REMOTE_USER = 'ubuntu' 	  	  
   }
 	
