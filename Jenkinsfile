@@ -2,8 +2,8 @@ pipeline {
   agent any
 	
   environment {
-    DOCKERHUB_CREDENTIALS = credentials('dockerhub-token')
-    REMOTE_SERVER = '13.232.185.76'
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub-credential')
+    REMOTE_SERVER = '13.201.122.100'
     REMOTE_USER = 'ubuntu' 	  	  
   }
 	
@@ -78,7 +78,7 @@ pipeline {
     stage('Deploy Docker image to AWS instance') {
       steps {
         script {
-          sshagent(credentials: ['aws-credential']) {
+          sshagent(credentials: ['awscred']) {
           sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker stop javaApp || true && docker rm javaApp || true'"
 	  sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker pull sunilmargale/java-webapp'"
           sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker run --name javaApp -d -p 8081:8081 sunilmargale/java-webapp'"
